@@ -1,0 +1,884 @@
+#include <iostream>
+#include <cmath>//para usar el sqrt(raiz cuadrada)
+using namespace std;
+
+class operacionesbasicas//Clase principal
+{
+	public://funciones dentro de la clase
+		float suma(int t);//suma
+		float resta(int t);//resta
+		float multiplicacion(int t);//multiplicacion
+		float division(float numerador, float denominador);//division
+		float potencia(float x, int exponente);//potencia
+};
+
+class operacionesgeometricas: public operacionesbasicas//herencia de clase
+{
+	public://funciones de la nueva clase
+		float perimetrotriangulo(float lado1, float lado2,float lado3);//perimetro triangulo
+		float perimetrorectangulo(float lado1, float lado2);//perimetro rectangulo
+		float perimetrocirculo(float diametro);//perimetro circulo
+
+		float areatriangulo(float base, float altura);//area triangulo
+		float arearectangulo(float lado1, float lado2);//area rectangulo
+		float areacirculo(float radio);//area circulo
+
+		float volumentriangulo(float base, float altura, float altura2);//volumen triangulo
+		float volumenrectangulo(float lado1, float lado2, float altura);//volumen rectangulo
+		float volumencirculo(float radio, float altura);//volumen circulo
+};
+
+class operacionesconmatrices: public operacionesgeometricas//herencia de clase
+{
+	public://funciones de la nueva clase
+		void llenarmatriz(int t, int* matriz);//llenar matriz
+		void mostrarmatriz(int t, int* matriz);//mostrar matriz
+
+		void sumadematrices(int t, int* matrizA, int* matrizB, int* matrizC);//suma de matrices
+		void restadematrices(int t, int* matrizA, int* matrizB, int* matrizC);//resta de matrices
+		void multiplicaciondematrices(int t, int* matrizA, int* matrizB, int* matrizC);//multiplicacion de matrices
+		void transpuestadematrices(int t, int* matrizA, int* matrizAT);//transpuesta de una matriz
+};
+
+class operacionesvectoriales : public operacionesconmatrices//herencia de clase
+{
+	public://funciones de la nueva clase
+		float ecuacion1(float ecuacion1[3], float ecuacion2[3]);//ecuacion 1
+		float ecuacion2(float ecuacion1[3], float ecuacion2[3]);//ecuacion 2
+
+		void llenarvector(int* vector);//llenar vector
+
+		float distanciaentredospuntos(int* vector1, int* vector2);//distancia entre 2 puntos
+		float magnituddelvector(int* vector);//magnitud de vector 2D
+		void sumadevectores(int* vector1, int* vector2, int* vector3);//suma de vectores 2D
+};
+
+class operacionesestadisticas: public operacionesvectoriales//herencia de clase
+{
+	public://funciones de la nueva clase
+		void llenar(int t, int A[100]);//llenar datos
+		float moda(int t, int A[100]);//moda
+		float promedio(int t, int A[100]);//promedio
+		float mediana(int t, int A[100]);//mediana
+};
+
+class calculadora: public operacionesestadisticas//calculadora con sus secciones
+{
+	public://funciones de seccion de la calculadora
+		void seccion1basico();//seccion 1
+		void seccion2geometria();//seccion 2
+		void seccion3matrices();//seccion 3
+		void seccion4vectores();//seccion 4
+		void seccion5estadistica();//seccion 5
+};
+
+//Funciones de calculadora
+int submenu;//variable globl para el menu de las funciones dentro de las secciones de la calc
+void calculadora::seccion1basico()//seccion 1
+{
+	int datos, datos2;
+	float datos3, datos4;
+
+	switch(submenu)//menu de funciones de la seccion 1
+	{
+		case 1://suma
+			cout<<"Cantidad de datos: "<<endl;
+			cin>>datos;
+			cout<<endl;
+			cout<<"El resultado es: "<<suma(datos)<<endl;//se enseña el resultado de la suma
+		break;
+
+		case 2://resta
+			cout<<"Cantidad de datos: "<<endl;
+			cin>>datos;
+			cout<<endl;
+			cout<<"El resultado es: "<<resta(datos)<<endl;//se enseña el resultado de la resta
+		break;
+
+		case 3://multiplicacion
+			cout<<"Cantidad de datos: "<<endl;
+			cin>>datos;
+			cout<<endl;
+			cout<<"El resultado es: "<<multiplicacion(datos)<<endl;//se enseña el resultado de la multiplicacion
+		break;
+
+		case 4:// division
+			cout<<"Numerador: ";
+			cin>>datos3;
+			cout<<"Denominador: ";
+			cin>>datos4;
+			cout<<"El resultado es: "<<division(datos3, datos4)<<endl;//se enseña el resultado de la division
+		break;
+
+		case 5://potencia
+			cout<<"Numero a elevar: ";
+			cin>>datos3;
+			cout<<"Exponente: ";
+			cin>>datos4;
+			cout<<"El resultado es: "<<potencia(datos3, datos4)<<endl;//se enseña el numero elevado a la potencia
+		break;
+
+		default://salida
+		break;
+	}
+}
+
+void calculadora::seccion2geometria()//seccion 2
+{
+	float lado1, lado2, lado3;
+	switch(submenu)//menu de funciones de la seccion 2
+	{
+		case 1:
+			cout<<"Lado 1: ";//se escriben los lados del triangulo
+			cin>>lado1;
+			cout<<"Lado 2: ";
+			cin>>lado2;
+			cout<<"Lado 3: ";
+			cin>>lado3;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0&&lado3>0)//si los lados del triangulo son positivos
+			{
+				cout<<"El perimetro del triangulo es: "<<perimetrotriangulo(lado1, lado2, lado3)<<endl;//se enseña el resultado del perimetro
+			}
+			else
+			cout<<"No puede haber lados negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 2:
+			cout<<"Lado 1: ";//se escriben los lados del rectangulo
+			cin>>lado1;
+			cout<<"Lado 2: ";
+			cin>>lado2;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0)//si los lados del rectangulo son positivos
+			{
+				cout<<"El perimetro del rectangulo es: "<<perimetrorectangulo(lado1, lado2)<<endl;//se enseña el resultado del perimetro
+			}
+			else
+			cout<<"No puede haber lados negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 3:
+			cout<<"Diametro: ";//se escribe el diametro
+			cin>>lado1;
+			cout<<endl;
+
+			if (lado1>0)//si es positivo
+			{
+				cout<<"El perimetro del circulo es: "<<perimetrocirculo(lado1)<<endl;//se enseña el resultado del perimetro
+			}
+			else
+			cout<<"No puede haber lados negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 4:
+			cout<<"Base: ";//se escriben los datos del triangulo
+			cin>>lado1;
+			cout<<"Altura: ";
+			cin>>lado2;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0)//si los datos son positivos
+			{
+				cout<<"El area del triangulo es: "<<areatriangulo(lado1, lado2)<<endl;//se enseña el resultado del area
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 5:
+			cout<<"Lado 1: ";//se escriben los datos del rectangulo
+			cin>>lado1;
+			cout<<"Lado 2: ";
+			cin>>lado2;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0)//si los datos son positivos
+			{
+				cout<<"El area del rectangulo es: "<<arearectangulo(lado1, lado2)<<endl;//se enseña el resultado del area
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 6:
+			cout<<"Radio: ";//se escribe los datos del circulo
+			cin>>lado1;
+			cout<<endl;
+
+			if(lado1>0)//si es positivo
+			{
+				cout<<"El area del circulo es: "<<areacirculo(lado1)<<endl;//se enseña el resultado del area
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 7:
+			cout<<"Base: ";//se escribe los datos del triangulo
+			cin>>lado1;
+			cout<<"Altura del triangulo: ";
+			cin>>lado2;
+			cout<<"Altura del prisma: ";
+			cin>>lado3;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0&&lado3>0)//si los datos son positivos
+			{
+				cout<<"El volumen del triangulo (prisma triang.) es: "<<volumentriangulo(lado1, lado2, lado3)<<endl;//se enseña el resultado del volumen
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestra
+		break;
+
+		case 8:
+			cout<<"Lado 1: ";//se escriben los datos del rectangulo
+			cin>>lado1;
+			cout<<"Lado 2: ";
+			cin>>lado2;
+			cout<<"Altura: ";
+			cin>>lado3;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0&&lado3>0)//si los datos son positivos
+			{
+				cout<<"El volumen del rectanglo (prisma rect.) es: "<<volumenrectangulo(lado1, lado2, lado3)<<endl;//se enseña el resultado del volumen
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestran
+		break;
+
+		case 9:
+			cout<<"Radio: ";//se escriben los datos del circulo
+			cin>>lado1;
+			cout<<"Altura del cilindro: ";
+			cin>>lado2;
+			cout<<endl;
+
+			if (lado1>0&&lado2>0)//si son positivos
+			{
+				cout<<"El volumen del circulo (cilindro) es: "<<volumencirculo(lado1, lado2)<<endl;//se enseña el resultado del volumen
+			}
+			else
+			cout<<"No puede haber negativos ni 0"<<endl;//si no, no se muestran
+		break;
+
+		default:
+		break;
+	}
+}
+
+void calculadora::seccion3matrices()//seccion 3
+{
+	int t=3;//tamaño
+	int A[10], B[10], C[10];//matrices
+
+	switch(submenu)//menu de funciones de la seccion 3
+	{
+		case 1:
+			cout<<"Matriz A: "<<endl;
+			llenarmatriz(t, (int*)A);//llenar matriz A
+			cout<<endl;
+			mostrarmatriz(t, (int*)A);//mostrar la matriz A
+			cout<<endl;
+
+			cout<<"Matriz B: "<<endl;
+			llenarmatriz(t, (int*)B);//llenar la matriz B
+			cout<<endl;
+			mostrarmatriz(t, (int*)B);//mostara la matriz B
+			cout<<endl;
+
+			cout<<"El resultado de la suma es: "<<endl;
+			sumadematrices(t, (int*)A, (int*)B, (int*)C);//sumar las matrices
+			cout<<endl;
+			mostrarmatriz(t, (int*)C);//mustrar la matriz de resultado
+		break;
+
+		case 2:
+			cout<<"Matriz A: "<<endl;
+			llenarmatriz(t, (int*)A);//se llena la matriz A
+			cout<<endl;
+			mostrarmatriz(t, (int*)A);//se muestra la matriz A
+			cout<<endl;
+
+			cout<<"Matriz B: "<<endl;
+			llenarmatriz(t, (int*)B);//se llena la matriz B
+			cout<<endl;
+			mostrarmatriz(t, (int*)B);//se muestra la matriz B
+			cout<<endl;
+
+			cout<<"El resultado de la resta es: "<<endl;
+			restadematrices(t, (int*)A, (int*)B, (int*)C);//se restan las matrices
+			cout<<endl;
+			mostrarmatriz(t, (int*)C);//se muestra la matriz del resultado
+		break;
+
+		case 3:
+			cout<<"Matriz A: "<<endl;
+			llenarmatriz(t, (int*)A);//se llena la matriz A
+			cout<<endl;
+			mostrarmatriz(t, (int*)A);//se muestra la matriz A
+			cout<<endl;
+
+			cout<<"Matriz B: "<<endl;
+			llenarmatriz(t, (int*)B);//se llena la matriz B
+			cout<<endl;
+			mostrarmatriz(t, (int*)B);//se muestra la matriz B
+			cout<<endl;
+
+			cout<<"El resultado de la multiplicacion es: "<<endl;
+			multiplicaciondematrices(t, (int*)A, (int*)B, (int*)C);//se multiplican las matrices
+			cout<<endl;
+			mostrarmatriz(t, (int*)C);//se enseña la matriz resultado
+		break;
+
+		case 4:
+			cout<<"Matriz A: "<<endl;
+			llenarmatriz(t, (int*)A);//se llena la matriz A
+			cout<<endl;
+			mostrarmatriz(t, (int*)A);//se muestra la matriz A
+			cout<<endl;
+
+			cout<<"La transpuesta es: "<<endl;
+			transpuestadematrices(t, (int*)A, (int*)C);//Se transpone la matriz
+			cout<<endl;
+			mostrarmatriz(t, (int*)C);//se enseña la matriz resultado
+		break;
+
+		default:
+		break;
+	}
+}
+
+void calculadora::seccion4vectores()//seccion 4
+{
+	float e1[3], e2[3];//arreglo de las ecuaciones
+	int vector1[2], vector2[2],vector3[2];//arreglo de los vectores
+	switch(submenu)//menu de funciones de la seccion 4
+	{
+		case 1:
+			cout<<"Para la ecuacion 1"<<endl;
+			cout<<"Para x: "<<endl;
+			cin>>e1[0];//se ingresa el valor de x
+			cout<<"Para y: "<<endl;
+			cin>>e1[1];//se ingresa el valor de y
+			cout<<"Para el ermino independiente: "<<endl;
+			cin>>e1[2];//se ingresa el valor del termino independiente
+			cout<<endl;
+
+			cout<<"Para la ecuacion 2"<<endl;
+			cout<<"Para x: ";
+			cin>>e2[0];//se ingresa el valor de x
+			cout<<"Para y: ";
+			cin>>e2[1];//se ingresa el valor de y
+			cout<<"Para el termino independiente: ";
+			cin>>e2[2];//se ingresa el valor del termino independiente
+			cout<<endl;
+
+			cout<<"x: "<<ecuacion1(e1, e2)<<endl;//se resuelve x
+			cout<<"y: "<<ecuacion2(e1, e2)<<endl;//se resuelve y
+		break;
+
+		case 2:
+			cout<<"Para el vector 1, para llenar poner primero el valor de x y luego el de y:"<<endl;
+			llenarvector((int*)vector1);//se llena el arreglo del primer punto
+			cout<<endl;
+
+			cout<<"Para el vector 2, para llenar poner primero el valor de x y luego el de y:"<<endl;
+			llenarvector((int*)vector2);//se llama el arreglo del segundo punto
+			cout<<endl;
+
+			cout<<"la distancia entre los 2 puntos es: "<<distanciaentredospuntos((int*)vector1, (int*)vector2)<<endl;//se saca la distancia
+		break;
+
+		case 3:
+			cout<<"Para el vector, para llenar poner primero el valor de x y luego el de y: "<<endl;
+			llenarvector((int*)vector1);//se llena el vector
+			cout<<endl;
+
+			cout<<"La magnitud del vector es: "<<magnituddelvector((int*)vector1)<<endl;//se saca su magnitud
+		break;
+
+		case 4:
+			cout<<"Vector 1, para llenar poner primero el valor de x y luego el de y: "<<endl;
+			llenarvector((int*)vector1);//se llena el primer vector
+			cout<<endl;
+
+			cout<<"Vector 2, para llenar poner primero el valor de x y luego el de y: "<<endl;
+			llenarvector((int*)vector2);//se llena el segundo vector
+			cout<<endl;
+
+			cout<<"La suma de los 2 vectores es: "<<endl;
+			sumadevectores((int*)vector1, (int*)vector2, (int*)vector3);//se suman los 2 vectores
+			cout<<vector3[0]<<", "<<vector3[1]<<endl;
+		break;
+
+		default:
+		break;
+	}
+}
+
+void calculadora::seccion5estadistica()//seccion 5
+{
+	int A[100];
+	int datos;
+
+	cout<<"Cantidad de datos: "<<endl;
+	cin>>datos;
+	llenar(datos, A);
+
+	switch(submenu)//menu de funciones de la seccion 5
+	{
+		case 1:
+			cout<<"La moda es: "<<moda(datos, A)<<endl;//mostrar la moda
+		break;
+
+		case 2:
+			cout<<"El promedio es: "<<promedio(datos, A)<<endl;//mostrar el promedio
+		break;
+
+		case 3:
+			cout<<"La mediana es: "<<mediana(datos, A)<<endl;//mostara la mediana
+		break;
+
+		default:
+		break;
+	}
+}
+
+//programa principal
+int main()
+{
+  int m;//variable para menu principal
+	calculadora c;//objeto calculadora
+	cout<<"Escoje una opcion"<<endl;//menu de la calculadora
+	cout<<"1: Operaciones aritmeticas basicas"<<endl;
+	cout<<"2: Operaciones geometricas"<<endl;
+	cout<<"3: Operaciones matriciales"<<endl;
+	cout<<"4: Operaciones algebraicas y vectores"<<endl;
+	cout<<"5: Operaciones estadisticas"<<endl;
+	cin>>m;//opcion seleccionada se guarda en m
+	cout<<endl;
+
+	switch(m)//menu qye depende de m
+	{
+    case 1://seccion 1 de la calculadora
+			cout<<"1: Suma de x numeros"<<endl;//opciones de la seccion 1
+			cout<<"2: Resta de x numeros"<<endl;
+			cout<<"3: Multiplicacion de x numeros"<<endl;
+			cout<<"4: Division de 2 numeros"<<endl;
+			cout<<"5: Potencia de un numero"<<endl;
+			cin>>submenu;//se guarda la seleccion del submenu
+			cout<<endl;
+			c.seccion1basico();//se llama a la funcion de la seccion 1
+    break;
+
+    case 2://seccion 2 de la calculadora
+			cout<<"1: Perimetro del triangulo"<<endl;//opciones de la seccion 2
+			cout<<"2: Perimetro del rectangulo"<<endl;
+			cout<<"3: Perimetro del circulo"<<endl;
+			cout<<"4: Area del triangulo"<<endl;
+			cout<<"5: Area del rectangulo"<<endl;
+			cout<<"6: Area del circulo"<<endl;
+			cout<<"7: Volumen del triangulo (prisma triangular)"<<endl;
+			cout<<"8: Volumen del rectangulo (prisma rectangular)"<<endl;
+			cout<<"9: Volumen del circulo (cilindro)"<<endl;
+			cin>>submenu;//se guarda la seleccion del submenu
+			cout<<endl;
+			c.seccion2geometria();//se llama a la funcion de la seccion 2
+    break;
+
+    case 3://seccion 3 de la calculadora
+			cout<<"1: Suma de 2 matrices (3x3)"<<endl;//opciones de la seccion 3
+			cout<<"2: Resta de 2 matrices (3x3)"<<endl;
+			cout<<"3: Multiplicacion de 2 matrices (3x3)"<<endl;
+			cout<<"4: Transposicion de una matriz"<<endl;
+			cin>>submenu;//se guarda la seleccion del submenu
+			cout<<endl;
+			c.seccion3matrices();//se llama a la funcion de la seccion 3
+    break;
+
+    case 4://seccion 4 de la calculadora
+			cout<<"1: Resolucion de sistemas de ecuaciones simples de 2 incognitas (2 ec.)"<<endl;//opciones de la seccion 4
+			cout<<"2: Distancia entre 2 puntos"<<endl;
+			cout<<"3: Magnitud de un vector 2D"<<endl;
+			cout<<"4: Suma de 2 vectores 2D"<<endl;
+			cin>>submenu;//se guarda la seleccion del submenu
+			cout<<endl;
+			c.seccion4vectores();//se llama a la funcion de la seccion 4
+    break;
+
+    case 5://seccion 5 de la calculadora
+			cout<<"1: Moda"<<endl;//opciones de la seccion 5
+			cout<<"2: Promedio"<<endl;
+			cout<<"3: Mediana"<<endl;
+			cin>>submenu;//se guarda la seleccion del submenu
+			cout<<endl;
+			c.seccion5estadistica();//se llama a la funcion de la seccion 5
+    break;
+
+    default://si no se escoje una opcion disponible se quiebra
+    break;
+  }
+}
+
+//Funciones de la seccion 1
+float operacionesbasicas::suma(int t)//funcion de la suma
+{
+	float n, sum=0;//numeros y contador
+	for(int i=0; i<t; i++)//ciclo para introducir los numeros dependiedo del tamaño ingresado por el usuario
+  {
+		cout<<"Numero "<<i+1<<": ";
+		cin>>n;//se guardan los numeros en n
+		sum = sum+n;//se le sumas los numeros imgresados al contador
+	}
+	cout<<endl;
+	return sum;//regresar el valor de sum
+}
+
+float operacionesbasicas::resta(int t)//funcion de la resta
+{
+	float n, resta=0;//numeros y contador
+	for(int i=0; i<t; i++)//ciclo para introducir los numeros dependiedo del tamaño ingresado por el usuario
+  {
+    cout<<"Numero "<<i+1<<": ";
+		cin>>n;//se guardan en n
+		resta = resta-n;//se le restan los numeros ingresados al contador
+	}
+	cout<<endl;
+	return resta;//se regresa el valor de resta
+}
+
+float operacionesbasicas::multiplicacion(int t)//funcion de la multiplicacion
+{
+	float n, mult=1;//numeros y contador
+	for(int i=0; i<t; i++)//ciclo para introducir los numeros dependiedo del tamaño ingresado por el usuario
+  {
+    cout<<"Numero "<<i+1<<": ";
+		cin>>n;//se guardan en n
+		mult =mult * n;//se multiplican los numeros ingresados por el valor del contador
+	}
+	cout<<endl;
+	return mult;//se regresa el valor de mult
+}
+
+float operacionesbasicas::division(float numerador, float denominador)//funcion de division
+{
+	cout<<endl;
+	return numerador/denominador;//se regresa el resultado de la division de numerador/denominador
+}
+
+float operacionesbasicas::potencia(float x, int exponente)//funcion de potencia
+{
+	int exp=1;//contador del exponente
+	for(int i=0; i<exponente; i++)//ciclo para elevar el numero dependiendo de su exponente
+  {
+		exp= exp*x;//contador del exponente
+	}
+	cout<<endl;
+	return exp;//se regresa el resultado del contador
+}
+
+//Funciones de la seccion 2
+float operacionesgeometricas::perimetrotriangulo(float lado1, float lado2, float lado3)//perimetro del triangulo
+{
+	return(lado1+lado2+lado3);//se regresa el resultado de la suma de los 3 lados del triangulo
+}
+
+float operacionesgeometricas::perimetrorectangulo(float lado1, float lado2)//perimetro del rectangulo
+{
+	return((2*lado1)+(2*lado2));//se regresa el resultado de la suma de los 4 lados del rectangulo
+}
+
+float operacionesgeometricas::perimetrocirculo(float diametro)//perimetro del circulo
+{
+	return (diametro*3.14);//se regresa el resultado del producto del diametro por pi
+}
+
+float operacionesgeometricas::areatriangulo(float base, float altura)//area del triangulo
+{
+	return(base*altura)/2;//se regresa el resultado del area del triangulo
+}
+
+float operacionesgeometricas::arearectangulo(float lado1, float lado2)//area del rectangulo
+{
+	return(lado1*lado2);//se regresa el resultado del area del rectangulo
+}
+
+float operacionesgeometricas::areacirculo(float radio)//area del circulo
+{
+	return(3.14*(radio*radio));//se regresa el resultado del area del circulo
+}
+
+float operacionesgeometricas::volumentriangulo(float base, float altura, float altura2)//volumen del triangulo
+{
+	return (areatriangulo(base, altura)*altura2);//se multiplica el area del triangulo por la altura del prisma
+}
+
+float operacionesgeometricas::volumenrectangulo(float lado1, float lado2, float altura)//volumen del rectangulo
+{
+	return (arearectangulo(lado1, lado2)*altura);//se multiplica el area del rectangulo por la altura del prisma
+}
+
+float operacionesgeometricas::volumencirculo(float radio, float altura)//volumen del circulo
+{
+	return (areacirculo(radio)*altura);//se multiplica el area del circulo por la altura del cilindro
+}
+
+//Funciones de la seccion 3
+void operacionesconmatrices::llenarmatriz(int t, int* matriz)//llenar la matriz
+{
+	for(int i=0; i<t; i++)//se ingresan los valores de cada una de las posiciones en i y j de la matriz dependiendo del tamaño seleccionado por el usuario
+	{
+		for(int j=0; j<t; j++)
+		{
+			cout<<"["<<i<<"]["<<j<<"]: ";
+			cin>>*(matriz+j+(i*t));//se guardan los valores en la matriz
+		}
+	}
+}
+
+void operacionesconmatrices::mostrarmatriz(int t, int* matriz)//mostrar la matriz
+{
+	for(int i=0; i<t; i++)// se muestran los valores de cada posicion en i y j de la matriz
+	{
+		for(int j=0; j<t; j++)
+		{
+			cout<<*(matriz+j+(i*t))<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+void operacionesconmatrices::sumadematrices(int t, int* matrizA, int* matrizB, int* matrizC)//suma de matrices
+{
+	for(int i=0; i<t; i++)//se suman los valores almacenados en las mismas i y j de cada matriz y se guardan en una nueva matriz
+	{
+		for(int j=0; j<t; j++)
+		{
+			(*(matrizC+j+(i*t))) = (*(matrizA+j+(i*t))) + (*(matrizB+j+(i*t)));
+		}
+	}
+}
+
+void operacionesconmatrices::restadematrices(int t, int* matrizA, int* matrizB, int* matrizC)//resta de matrices
+{
+	for(int i=0; i<t; i++)//se restan los valores almacenados en las mismas i y j de cada matriz y se guardan en una nueva matriz
+	{
+		for(int j=0; j<t; j++)
+		{
+			(*(matrizC+j+(i*t))) = (*(matrizA+j+(i*t))) - (*(matrizB+j+(i*t)));
+		}
+
+	}
+}
+
+void operacionesconmatrices::multiplicaciondematrices(int t, int* matrizA, int* matrizB, int* matrizC)//multiplicacion de matrices
+{
+	int mult=0;//contador para la multiplicacion
+	for(int i=0; i<t; i++)//se agrega una nueva variable para poder multiplicar filas por columnas
+	{
+		for(int j=0; j<t; j++)
+		{
+			for(int k=0; k<t; k++)
+			{
+				mult= mult+((*(matrizA+k+(i*t))) * (*(matrizB+j+(k*t))));//se multiplican filas por columnas y la suma se guarda en mult
+			}
+
+			*(matrizC+j+(i*t)) = mult;//mult se guarda en una nueva posicion de una matriz de resultado
+			mult=0;//se reinicia el valor de mult
+		}
+	}
+}
+
+void operacionesconmatrices::transpuestadematrices(int t, int* matrizA, int* matrizAT)//transpuesta de una matriz
+{
+	for(int i=0; i<t; i++)//los valores de i y j se guardan en una nueva matriz pero con orden (j)(i)
+	{
+		for(int j=0; j<t; j++)
+		{
+			*(matrizAT+j+(i*t)) = *(matrizA+i+(j*t));
+		}
+	}
+}
+
+//Funciones de la seccion 4
+float operacionesvectoriales::ecuacion1(float ecuacion1[3], float ecuacion2[3])//solucion de sist. de ecuaciones por metodo de cramer (determinantes) para x
+{
+	float determinante;
+	determinante= (ecuacion1[0]*ecuacion2[1]) - (ecuacion1[1]*ecuacion2[0]);//se saca el determinante
+	return ((((ecuacion1[2])*(ecuacion2[1])) - ((ecuacion2[2])*(ecuacion1[1])))/determinante);//(delta x/determinante)= x
+}
+
+float operacionesvectoriales::ecuacion2(float ecuacion1[3], float ecuacion2[3])//solucion de sist. de ecuaciones parte 2 (para y)
+{
+	float determinante;
+	determinante= (ecuacion1[0]*ecuacion2[1]) - (ecuacion1[1]*ecuacion2[0]);//determinante
+	return ((((ecuacion1[0])*(ecuacion2[2])) - ((ecuacion1[2])*(ecuacion2[0])))/determinante);//(delta y/determinante)= y
+}
+
+void operacionesvectoriales::llenarvector(int* vector)//llenar vector
+{
+	for(int i=0; i<2; i++)//se llena el vector 2D
+	{
+		cin>>*(vector+i);
+	}
+}
+
+float operacionesvectoriales::distanciaentredospuntos(int* vector1, int* vector2)//distancia entre 2 puntos
+{
+	int cont[2];
+	int cuadrados;
+	for(int i=0; i<2; i++)
+	{
+		cont[i]= ((*(vector1 + i)) - (*(vector2 + i)));//se agrupa segun la ley (x2-x1) y (y2-y1) y se guardan en un nuevo arreglo
+	}
+	cuadrados= (cont[0]*cont[0]) + (cont[1]*cont[1]);//(x2-x1) y (y2-y1) se elevan al cuadrado
+	return (sqrt(cuadrados));//a eso se le saca raiz cuadrada
+}
+
+float operacionesvectoriales::magnituddelvector(int* vector)//magnitud del vector
+{
+	int cuadrados= ((*(vector)) * (*(vector))) + ((*(vector+1)) * (*(vector+1)));//se suman los cuadrados de los factores
+	return (sqrt(cuadrados));//a la suma se le saca raiz cuadrada
+}
+
+void operacionesvectoriales::sumadevectores(int* vector1, int* vector2, int* vector3)//suma de vectores
+{
+	for(int i=0; i<2; i++)
+	{
+		*(vector3+i)= ((*(vector1+i)) + (*(vector2+i)));//se suman las x de ambos vectores y  las y de ambos y se guardan en un nuevo vector
+	}
+}
+
+//Funciones de la seccion 5
+void operacionesestadisticas::llenar(int t, int A[100])//llenar el arreglo
+{
+		for(int i=0; i<t; i++)//se ingresan los numeros al arreglo del tamaño seleccionado
+	{
+		cout<<"Numero "<<i+1<<": "<<endl;
+		cin>>A[i];
+	}
+}
+
+float operacionesestadisticas::moda(int t, int A[100])//moda
+{
+
+}
+
+float operacionesestadisticas::promedio(int t, int A[100])//promedio
+{
+	int contador=0;
+	for(int i=0; i<t; i++)//se ingresan los datos al arreglo
+	{
+		contador= (contador + A[i]);//en el contador se suman los valores del arreglo
+	}
+	return division(contador, t);//se regresa el resulado de el contador entre la cantidad de datos
+}
+
+float operacionesestadisticas::mediana(int t, int A[100])//mediana
+{
+
+}
+/*
+//Nos falto adaptar esto al codigo, que es la funcion para la mediana y la moda, ambas funciones en una sola
+int MAX;
+cout << "Introdusca la cantidad de datos que desea usar: " << '\n';
+cin>>MAX;
+int numeros[MAX];
+int i,j;
+int auxiliar[MAX];
+int posicion=0;
+int numero=0;
+
+int mayor=0;
+int posicionmayor=0;
+int bandera=0;
+float suma=0;
+// Solicitar los numeros para rellenar el vector
+for(i=0; i<MAX; i++)
+{
+	cout << "Introdusca un dato" << '\n';
+	cin >> numeros[i];
+}
+
+// Calcular la moda
+// Rellenamos el vector auxiliar inicializandolo a valores 0
+for(i=0; i<MAX; i++)
+{
+		auxiliar[i]=0;
+}
+// Recorrer el vector comprobando las repeticiones de cada numero
+// y almacenando las mismas en el vector auxiliar segun la posicion
+// del numero
+for(i=0; i<MAX; i++)
+{
+		numero = numeros[i];
+		posicion = i;
+		for(j=i; j<MAX; j++)
+		{
+				if(numeros[j]==numero) auxiliar[posicion]++;
+		}
+}
+mayor=auxiliar[0];
+posicionmayor = 0;
+for(i=0; i<MAX; i++)
+{
+		if(auxiliar[i]>mayor)
+		{
+				posicionmayor=i;
+				mayor=auxiliar[i];
+		}
+}
+// Visualizar el elemento con mas frecuencia de aparicion
+cout << "La moda es: " << '\n';
+cout <<  numeros[posicionmayor] << '\n';
+// Se calcula la mediana
+bandera=0;
+for(i=MAX; i>0 && bandera==0; i--)
+{
+		bandera=1;
+		for( j=0;  j< i; j++)
+		{
+				if(numeros[j]>numeros[j+1])
+				{
+						numero = numeros[j];
+						numeros[j] = numeros[j+1];
+						numeros[j+1]=numero;
+						bandera=0;
+				}
+		}
+}
+// Todos los numeros del arreglo
+std::cout << "Los numeros usados en el arreglo son: " << '\n';
+for(i=0; i<MAX; i++)
+{
+	cout << numeros[i] << '\n';
+}
+// Dependiendo si el numero la cantidad de numeros en el arreglo es par o impar
+// la mediana sera el numero central o los dos numeros centrales
+if(MAX%2!=0)
+{
+	cout << "El valor de la media es:" << '\n';
+	cout << numeros[MAX/2] << '\n';
+}
+else
+{
+	cout << "El valor numero 1 de la media es:" << '\n';
+	cout << numeros[MAX/2] << '\n';
+	cout << "El valor numero 2 de la media es:" << '\n';
+	cout << numeros[(MAX/2)-1] << '\n';
+}
+// Calcular la media www.aprendoencasa.es
+suma = 0;
+for(i=0; i<MAX; i++)
+{
+		suma+=numeros[i];
+}
+cout << "El valor de la media es: " << '\n';
+cout << suma/MAX << '\n';
+return 0;
+}
+*/
